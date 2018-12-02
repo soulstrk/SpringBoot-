@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class UserController {
 	
-	@RequestMapping("/hello")
+/*	@RequestMapping("/ttt")
 	public String abc() {
 		return "hello";
 	}
@@ -17,6 +17,6 @@ public class UserController {
 	public User create(@RequestBody User user) {
 		
 		return user;
-	}
+	}*/
 	
 }

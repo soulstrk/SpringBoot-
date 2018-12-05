@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+ <mapper namespace="com.soulstrk.mvc.board.mapper.BoardMapper">
+ 	<select id="getList" parameterType="map" resultType="com.soulstrk.mvc.board.vo.BoardVo">
+ 	
+		select * from
+			(select A.*, rownum rnum from
+				(select * from board order by num desc) A)
+		<![CDATA[	where rnum >= #{pu.startRow} and rnum <= #{pu.endRow} ]]>
+		 
+ 	</select>
+ 	
+ 	<select id="getTotalRowCount" resultType="int">
+ 		select NVL(count(*),0) totalRowCount from board
+ 	</select>
+ </mapper>

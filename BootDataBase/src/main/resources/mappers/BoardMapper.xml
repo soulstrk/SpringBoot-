@@ -6,14 +6,25 @@
  <mapper namespace="com.soulstrk.mvc.board.mapper.BoardMapper">
  	<select id="getList" parameterType="map" resultType="com.soulstrk.mvc.board.vo.BoardVo">
  	
-		select * from
-			(select A.*, rownum rnum from
-				(select * from board order by num desc) A)
-		<![CDATA[	where rnum >= #{pu.startRow} and rnum <= #{pu.endRow} ]]>
+	select * from
+		(select A.*, rownum rnum from
+			(select * from board 
+				<where>
+					<if test="keyWord != null and keyWord != ''">
+						${keyWord} like '%'||#{searchWord}||'%'
+					</if>
+				</where> 
+					order by num desc) A)
+			<![CDATA[	where rnum >= #{pu.startRow} and rnum <= #{pu.endRow} ]]>
 		 
  	</select>
  	
- 	<select id="getTotalRowCount" resultType="int">
+ 	<select id="getTotalRowCount" resultType="int" parameterType="map">
  		select NVL(count(*),0) totalRowCount from board
+ 			<where>
+ 				<if test="keyWord != null and keyWord != '' and searchWord != null">
+ 					${keyWord} like '%'||#{searchWord}||'%'
+ 				</if>
+ 			</where>
  	</select>
  </mapper>

@@ -7,5 +7,5 @@ import com.soulstrk.mvc.board.vo.BoardVo;
 
 public interface BoardMapper {
 	public List<BoardVo> getList(Map<String, Object> map);
-	public int getTotalRowCount();
+	public int getTotalRowCount(Map<String, Object> map);
 }

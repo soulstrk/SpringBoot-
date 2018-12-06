@@ -19,5 +19,4 @@ public class BoardService {
 		List<BoardVo> list = boardMapper.getList(map);
 		return list;
 	}
-	
 }

@@ -26,13 +26,15 @@ public class BoardController {
 	@GetMapping("/board")
 	public String boardPage(@RequestParam(value="pageNum", defaultValue="1") int pageNum,String keyWord, String searchWord, Model model) {
 		Map<String, Object> map = new HashMap<String, Object>();
-		int totalRowCount = boardMapper.getTotalRowCount();
+		map.put("keyWord", keyWord);
+		map.put("searchWord", searchWord);
+		
+		int totalRowCount = boardMapper.getTotalRowCount(map);
 		
 		PageUtil pu = new PageUtil(pageNum, totalRowCount, 10, 10);
 		
 		map.put("pu", pu);
-		map.put("keyWord", keyWord);
-		map.put("searchWord", searchWord);
+		System.out.println(pu);
 		List<BoardVo> boardList = boardService.boardPage(map);
 		
 		model.addAttribute("boardInfo",map); // 현재 응답받은 게시판 정보

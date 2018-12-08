@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.soulstrk.mvc.board.mapper.BoardMapper;
@@ -43,4 +44,44 @@ public class BoardController {
 		return "main";
 	}
 	
+	@GetMapping("/board/delete")
+	public String deleteBoard(int num) {
+		boardService.deleteBoard(num);
+		
+		return "redirect:/board";
+	}
+	
+	@PostMapping("/board/insert")
+	public String insertBoard(BoardVo boardVo) {
+		boardVo.setHit(10);
+		boardService.insertBoard(boardVo);
+		
+		return "redirect:/board";
+	}
+	
+	@GetMapping("/board/moveWrite")
+	public String moveWrite() {
+		return "write";	
+	}
+	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

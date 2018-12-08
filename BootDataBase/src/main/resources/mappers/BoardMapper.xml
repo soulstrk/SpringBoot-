@@ -27,4 +27,12 @@
  				</if>
  			</where>
  	</select>
+ 	
+ 	<insert id="insertBoard" parameterType="com.soulstrk.mvc.board.vo.BoardVo">
+ 		insert into board values(board_seq.nextval, #{writer}, #{title}, #{content}, #{hit}, '1234')
+ 	</insert>
+ 	
+ 	<delete id="deleteBoard" parameterType="int">
+ 		delete from board where num = #{value}
+ 	</delete>
  </mapper>

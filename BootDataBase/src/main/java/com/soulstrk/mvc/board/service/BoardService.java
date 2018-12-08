@@ -19,4 +19,12 @@ public class BoardService {
 		List<BoardVo> list = boardMapper.getList(map);
 		return list;
 	}
+	
+	public void insertBoard(BoardVo boardVo) {
+		boardMapper.insertBoard(boardVo);
+	}
+	
+	public void deleteBoard(int num) {
+		boardMapper.deleteBoard(num);
+	}
 }

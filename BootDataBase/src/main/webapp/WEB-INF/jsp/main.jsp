@@ -26,6 +26,7 @@
                     <th>작성자</th>
                     <th>글 제목</th>
                     <th>좋아요</th>
+                    <th>지우기</th>
                 </tr>
 			<c:forEach items="${boardList }" var="vo">                
                 <tr>
@@ -33,6 +34,7 @@
                     <td>${vo.writer }</td>
                     <td>${vo.title }</td>
                     <td>10</td>
+                    <td><a href="${pageContext.request.contextPath}/board/delete?num=${vo.num}">X</a></td>
                 </tr>
             </c:forEach>
             </table>
@@ -40,7 +42,7 @@
             
         <div class="row">
             <div class="col-md-5">
-                <button>글 쓰기</button>
+                <button id="writingButton">글 쓰기</button>
             </div>
 			
             <ul class="pagination">
@@ -81,10 +83,8 @@
 <script>
     var contextPath = '${pageContext.request.contextPath}';
     var selectedOption = '${boardInfo.keyWord}';
-
     $(function(){
         makeOption(selectedOption);
-
         $('#searchButton').on('click',function(){
             var keyWord = $('#select option:selected').val();
             var searchWord = $('input[name=searchWord]').val();
@@ -92,7 +92,6 @@
             var frm = makeForm('/board', contextPath);
             var add = addData("keyWord",keyWord);
             frm.append(add);
-
             add = addData("searchWord", searchWord);
             frm.append(add);
             
@@ -100,28 +99,28 @@
             $(document.body).append(frm);
             frm.submit();
         });
+    
+        $('#writingButton').on('click',function(){
+            location.href = contextPath+"/board/moveWrite";
+        });
     })
-
     function makeForm(actionURL, contextPath){
         var frm = document.createElement('form');
-
         frm.name = 'frm';
         frm.action = contextPath+actionURL;
         frm.method = "get";
-
         return frm;
     }
-
+    
     function addData(name, value){
         var add = document.createElement('input');
-
         add.setAttribute('type', 'hidden');
         add.setAttribute('name', name);
         add.setAttribute('value', value);
         
         return add;
     }
-
+    
     function makeOption(keyWord) {
         switch (keyWord) {
             case "title":
